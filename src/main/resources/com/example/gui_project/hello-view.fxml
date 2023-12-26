@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui_project.HelloController">
+   <children>
+      <GridPane layoutX="143.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="out_file_name" promptText="Output here" GridPane.rowIndex="1" />
+            <TextField fx:id="inptfilename" onInputMethodTextChanged="#Inptgettext" promptText="Input here" />
+            <Label text="Insert your Input file name" translateY="-50.0" />
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox layoutX="-2.0" layoutY="-24.0" prefHeight="131.33333333333334" prefWidth="95.33333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Choose input file " />
+                              <RadioButton fx:id="inpttxt" mnemonicParsing="false" selected="true" text=".txt">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="inptgroup" />
+                                 </toggleGroup></RadioButton>
+                              <RadioButton fx:id="inptjson" mnemonicParsing="false" text=".json" toggleGroup="$inptgroup" />
+                              <RadioButton fx:id="inptxml" mnemonicParsing="false" text=".xml" toggleGroup="$inptgroup" />
+                              <RadioButton fx:id="inptzip" mnemonicParsing="false" text=".zip" toggleGroup="$inptgroup" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <CheckBox layoutX="12.0" layoutY="57.0" mnemonicParsing="false" text="my method" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox layoutX="31.0" layoutY="-62.0" prefHeight="130.66666666666666" prefWidth="95.33333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Choose output file format" />
+                              <RadioButton fx:id="out_txr" mnemonicParsing="false" selected="true" text=".txt">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="outputgroup" />
+                                 </toggleGroup></RadioButton>
+                              <RadioButton fx:id="out_json" mnemonicParsing="false" text=".json" toggleGroup="$outputgroup" />
+                              <RadioButton fx:id="out_xml" mnemonicParsing="false" text=".xml" toggleGroup="$outputgroup" />
+                              <CheckBox fx:id="arch" mnemonicParsing="false" text="Archive" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <CheckBox layoutX="12.0" layoutY="57.0" mnemonicParsing="false" text="my method" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <Button fx:id="make_file" mnemonicParsing="false" onAction="#Create_file" text="Create output file" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <Label text="Cipher" />
+                  <CheckBox fx:id="To_decrypt" mnemonicParsing="false" text="Ciphered" />
+                  <Label text="Key" />
+                  <TextField fx:id="Key_dec" promptText="Input key here" />
+               </children>
+            </VBox>
+            <Label text="Insert your output file name" translateY="-50.0" GridPane.rowIndex="1" />
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Ciphered" />
+                  <CheckBox fx:id="To_Encode" mnemonicParsing="false" text="Yes" />
+                  <Label text="Input key" />
+                  <TextField fx:id="Key" promptText="Input key here" />
+               </children>
+            </VBox>
+            <Button fx:id="check" mnemonicParsing="false" onAction="#OnCheckClicked" text="Read File" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="Hello" text="Label" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
