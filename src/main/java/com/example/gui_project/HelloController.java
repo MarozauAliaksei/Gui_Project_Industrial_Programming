@@ -5,10 +5,28 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Objects;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HelloController {
+    private static Clip clip;
+    public static void playSound(String soundFilePath, int startFromMillis) {    try {
+        File soundFile = new File(soundFilePath);        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);        clip.setMicrosecondPosition(startFromMillis * 1000);
+        clip.start();    } catch (Exception e) {
+        e.printStackTrace();    }
+    }
+    public static void stopSound() {    if (clip != null && clip.isRunning()) {
+        clip.stop();    }
+    }
     public CheckBox To_Encode;
     public TextField Key;
     public CheckBox To_decrypt;
@@ -27,6 +45,7 @@ public class HelloController {
     @FXML
     public TextField out_file_name;
     Fileworker a = new Fileworker();
+    Vector<Fileworker> arr = new Vector<>();
     String inputtext;
     String Format = "";
     @FXML
@@ -65,12 +84,12 @@ public class HelloController {
             Format = "zip";
             flag = true;
         }
+        if (To_decrypt.isSelected()) {
+            File fl = new File(inputtext + "Decrypted" + '.' + Format);
+            Decrypt.decryptFile(Key_dec.getText(), inputtext + '.' + "enc", fl);
+            inputtext = inputtext + "Decrypted";
+        }
         if (!flag) {
-            if (To_decrypt.isSelected()) {
-                File fl = new File(inputtext + "Decrypted" + '.' + Format);
-                Decrypt.decryptFile(Key_dec.getText(), inputtext + '.' + "enc", fl);
-                inputtext = inputtext + "Decrypted";
-            }
             a = new Fileworker(inputtext, Format);
             try {
                 a.ReadFromFile(Boolean.TRUE);
@@ -114,6 +133,36 @@ public class HelloController {
                 }
             }
             Dearchivizer.unzip(inputtext + '.' + Format, "Dearch/");
+            File[] files = folder.listFiles();
+            if(files != null) {
+                for (File file : files) {
+                    String name = file.getName();
+                    Pattern name_format = Pattern.compile("(.+)\\.(.+)");
+                    Matcher fl_name = name_format.matcher(name);
+                    if(fl_name.find()){
+                        String nm = fl_name.group(1);
+                        String fl = fl_name.group(2);
+
+                        Fileworker flw = new Fileworker("Dearch\\" + nm, fl);
+                        flw.ReadFromFile(Boolean.TRUE);
+                        flw.Fill_inf();
+                        for (Information information : flw.inf_) {
+                            information.Change_var();
+                            String tmp = information.Remove_bruh(information.task_without_var);
+                            if (information.solvebale) {
+                                information.result = Double.parseDouble(tmp);
+                            } else {
+                                information.CoutError(tmp);
+                            }
+                        }
+                        arr.add(flw);
+                    }
+                    else {
+                        Alert wat = new Alert(Alert.AlertType.ERROR);
+                        wat.show();
+                    }
+                }
+            }
 
         }
         was_read = Boolean.TRUE;
@@ -141,16 +190,35 @@ public class HelloController {
         } else {
             Out_File_Format = "xml";
         }
-        Archival arc = new Archival(a);
-        if(arch.isSelected()){
-            arc.Archive(Out_File_Name, Out_File_Format);
+        if (!Objects.equals(Format, "zip")) {
+            Archival arc = new Archival(a);
+            if (arch.isSelected()) {
+                arc.Archive(Out_File_Name, Out_File_Format);
+            } else {
+                a.FileWrite(Out_File_Name, Out_File_Format);
+            }
+            if (To_Encode.isSelected()) {
+                File enc = new File(Out_File_Name + ".enc");
+                Encryptor.encryptFile(Key.getText(), Out_File_Name + '.' + Out_File_Format, enc);
+            }
         }
-        else{
-            a.FileWrite(Out_File_Name, Out_File_Format);
+        else {
+            Out_File_Name = "OutputFromArch\\" + Out_File_Name;
+            int counter = 0;
+            for (Fileworker flw : arr){
+                counter++;
+                Archival arc = new Archival(flw);
+                if(arch.isSelected()){
+                    arc.Archive(Out_File_Name + counter, Out_File_Format);
+                } else {
+                    flw.FileWrite(Out_File_Name + counter, Out_File_Format);
+                }
+                if (To_Encode.isSelected()){
+                    File enc = new File(Out_File_Name + counter + ".enc");
+                    Encryptor.encryptFile(Key.getText(), Out_File_Name + counter + "." + Out_File_Format, enc);
+                }
+            }
         }
-        if(To_Encode.isSelected()){
-            File enc = new File(Out_File_Name + ".enc");
-            Encryptor.encryptFile(Key.getText(),Out_File_Name + '.' + Out_File_Format, enc );
-        }
+        playSound("C:\\Users\\user\\Downloads\\Sexy and I Know It.wav", 27805);
     }
 }
