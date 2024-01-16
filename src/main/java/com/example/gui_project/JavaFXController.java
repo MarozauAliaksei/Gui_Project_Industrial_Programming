@@ -5,9 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
@@ -15,18 +12,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HelloController {
-    private static Clip clip;
-    public static void playSound(String soundFilePath, int startFromMillis) {    try {
-        File soundFile = new File(soundFilePath);        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);        clip.setMicrosecondPosition(startFromMillis * 1000);
-        clip.start();    } catch (Exception e) {
-        e.printStackTrace();    }
-    }
-    public static void stopSound() {    if (clip != null && clip.isRunning()) {
-        clip.stop();    }
-    }
+public class JavaFXController {
     public CheckBox To_Encode;
     public TextField Key;
     public CheckBox To_decrypt;

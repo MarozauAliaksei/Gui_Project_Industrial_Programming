@@ -30,11 +30,8 @@ public class Dearchivizer {
                         }
                     }
 
-                    // Проверяем, является ли разархивированный файл архивом
                     if (isZipFile(entryDestination)) {
-                        // Если архив, рекурсивно разархивируем его
                         unzip(entryDestination.getAbsolutePath(), entryDestination.getParent());
-                        // Удаляем оригинальный архив
                         entryDestination.delete();
                     }
                 }
@@ -45,12 +42,10 @@ public class Dearchivizer {
     }
 
     private static boolean isZipFile(File file) {
-        // Простая проверка по расширению файла
         return file.getName().toLowerCase().endsWith(".zip");
     }
 
     private static String sanitizeFileName(String fileName) {
-        // Можете использовать свою логику очистки от недопустимых символов, если это необходимо
         return fileName.replaceAll("[^a-zA-Z0-9._-]", "_");
     }
 

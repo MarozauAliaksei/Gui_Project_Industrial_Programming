@@ -1,5 +1,6 @@
 package com.example.gui_project;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileworkerTest {
 
     @Test
-    void fill_inf() throws FileNotFoundException {
+    void fill_inf() throws FileNotFoundException, JSONException {
         Fileworker flw = new Fileworker("Input", "txt");
         flw.ReadFromFile(true);
         flw.Fill_inf();
@@ -70,7 +71,7 @@ class FileworkerTest {
 
 
     @Test
-    void readFromFile() throws FileNotFoundException {
+    void readFromFile() throws FileNotFoundException, JSONException {
         Fileworker flw = new Fileworker("Input", "txt");
         flw.ReadFromFile(Boolean.TRUE);
         Vector<String> check = new Vector<String>();

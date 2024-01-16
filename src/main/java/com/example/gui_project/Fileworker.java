@@ -6,7 +6,18 @@ import java.io.*;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+@SuppressWarnings({"MismatchedQueryAndUpdateOfStringBuilder", "unchecked"})
 class Fileworker {
     String filename_;
     String format_;
@@ -54,7 +65,7 @@ class Fileworker {
     }
 
 
-    void ReadFromFile(Boolean my_method) throws FileNotFoundException {
+    void ReadFromFile(Boolean my_method) throws FileNotFoundException, JSONException {
         content_ = new Vector<String>();
         String name = filename_.concat(".");
         name = name.concat(format_);
@@ -114,6 +125,40 @@ class Fileworker {
                 }
                 else {
 
+                    // Read the JSON data from the file
+                    StringBuilder jsonData = new StringBuilder();
+                    try (BufferedReader reader = new BufferedReader(new FileReader(name))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            jsonData.append(line);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    JSONObject jsonObject = new JSONObject();
+
+                    JSONArray tasksArray = jsonObject.getJSONArray("tasks");
+
+                    for (int i = 0; i < tasksArray.length(); i++) {
+                        JSONObject taskObject = tasksArray.getJSONObject(i);
+                        int taskNumber = taskObject.getInt("task_number");
+                        String equation = taskObject.getString("equation");
+                        JSONObject variableValues = taskObject.getJSONObject("variable_values");
+
+                        content_.add("Task" + taskNumber);
+                        content_.add(equation);
+
+                        // Вывод значений переменных
+                        variableValues.keys().forEachRemaining(variable ->
+                        {
+                            try {
+                               content_.add(variable + " = " + variableValues.get((String) variable));
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                    }
 
                 }
                 return;
@@ -154,6 +199,59 @@ class Fileworker {
                         file_not_found.show();
                     }
 
+                }
+                else {
+
+                    try {
+                        // Create a DocumentBuilder
+                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder builder = factory.newDocumentBuilder();
+
+                        // Parse the XML file
+                        Document document = builder.parse(new File(name));
+
+                        // Get the root element
+                        Element root = document.getDocumentElement();
+
+                        // Get the tasks NodeList
+                        NodeList tasksNodeList = root.getElementsByTagName("task");
+
+                        // Process each task
+                        for (int i = 0; i < tasksNodeList.getLength(); i++) {
+                            Node taskNode = tasksNodeList.item(i);
+
+                            if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element taskElement = (Element) taskNode;
+
+                                // Extract task attributes and elements
+                                int taskNumber = Integer.parseInt(taskElement.getAttribute("task_number"));
+                                String equation = taskElement.getElementsByTagName("equation").item(0).getTextContent();
+
+                                Element variableValuesElement = (Element) taskElement.getElementsByTagName("variable_values").item(0);
+
+                                content_.add("Task" + taskNumber);
+                                content_.add(equation);
+
+                                // Iterate through variable elements
+                                NodeList variableList = variableValuesElement.getChildNodes();
+                                for (int j = 0; j < variableList.getLength(); j++) {
+                                    Node variableNode = variableList.item(j);
+
+                                    if (variableNode.getNodeType() == Node.ELEMENT_NODE) {
+                                        Element variableElement = (Element) variableNode;
+                                        String variableName = variableElement.getNodeName();
+                                        String variableValue = variableElement.getTextContent();
+
+                                        content_.add(variableName + " = " + variableValue);
+                                    }
+                                }
+
+                                System.out.println("\n");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 break;

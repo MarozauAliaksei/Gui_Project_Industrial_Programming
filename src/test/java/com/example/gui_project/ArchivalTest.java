@@ -1,37 +1,36 @@
 package com.example.gui_project;
 
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.zip.ZipFile;
 
 class ArchivalTest {
 
     @Test
-    void archive() throws IOException {
-        Fileworker flw = new Fileworker("Example", "txt");
-        Archival arc = new Archival(flw);
-        arc.Archive("Example", "txt");
-        File arch = new File("Example.zip");
-        if(arch.exists()){
-            Dearchivizer.unzip("Example", "Dearch");
-            Scanner in1 = new Scanner("Dearch\\Example.txt");
-            Scanner in2 = new Scanner("Example.txt");
-            boolean flag = true;
-            String str1 = in1.nextLine();
-            String str2 = in2.nextLine();
-            while(Objects.equals(str1, str2)){
-                str1 = in1.nextLine();
-                str2 = in2.nextLine();
-                if(str1.isEmpty() && str2.isEmpty()){
-                    flag = true;
-                }
+    void testArchive() {
+        try {
+            String fileName = "testFile";
+            String fileFormat = "txt";
+            Fileworker fileworker = new Fileworker(); // Предполагаем, что у вас есть реализация Fileworker
+            Archival archival = new Archival(fileworker);
+
+            archival.Archive(fileName, fileFormat);
+
+            File archivedFile = new File("C:\\Users\\user\\IdeaProjects\\Gui_Project\\" + fileName + ".zip");
+
+            assertTrue(archivedFile.exists());
+            assertTrue(archivedFile.isFile());
+
+            try (ZipFile zipFile = new ZipFile(archivedFile)) {
+                assertTrue(zipFile.entries().hasMoreElements());
             }
-            assertTrue(flag);
+        } catch (IOException e) {
+            fail("Exception thrown: " + e.getMessage());
         }
     }
+
 }

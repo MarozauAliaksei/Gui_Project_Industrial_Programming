@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui_project.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui_project.JavaFXController">
    <children>
       <GridPane layoutX="143.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -38,9 +38,10 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="131.0" prefWidth="95.0">
                      <children>
-                        <CheckBox layoutX="12.0" layoutY="57.0" mnemonicParsing="false" text="my method" />
+                        <CheckBox layoutX="6.0" layoutY="28.0" mnemonicParsing="false" text="my method" />
+                        <CheckBox layoutX="6.0" layoutY="66.0" mnemonicParsing="false" text="Polish Natation" />
                      </children>
                   </AnchorPane>
               </items>
@@ -65,13 +66,13 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <CheckBox layoutX="12.0" layoutY="57.0" mnemonicParsing="false" text="my method" />
+                        <CheckBox layoutX="6.0" layoutY="56.0" mnemonicParsing="false" text="my method" />
                      </children>
                   </AnchorPane>
               </items>
             </SplitPane>
             <Button fx:id="make_file" mnemonicParsing="false" onAction="#Create_file" text="Create output file" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <VBox prefHeight="134.0" prefWidth="182.0" GridPane.columnIndex="2">
                <children>
                   <Label text="Cipher" />
                   <CheckBox fx:id="To_decrypt" mnemonicParsing="false" text="Ciphered" />
@@ -89,7 +90,6 @@
                </children>
             </VBox>
             <Button fx:id="check" mnemonicParsing="false" onAction="#OnCheckClicked" text="Read File" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="Hello" text="Label" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

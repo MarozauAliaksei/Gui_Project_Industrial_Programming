@@ -14,6 +14,7 @@ module com.example.gui_project {
     requires java.management;
     requires java.naming;
     requires org.apache.commons.compress;
+    requires java.json;
 
     opens com.example.gui_project to javafx.fxml;
     exports com.example.gui_project;
