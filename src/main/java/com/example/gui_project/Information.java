@@ -1,5 +1,7 @@
 package com.example.gui_project;
 
+import org.apache.commons.compress.harmony.unpack200.IMatcher;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -83,6 +85,12 @@ public class Information {
     }
 
     String FindResult(String inf){
+        Pattern var = Pattern.compile("[A-Z]|[a-z]");
+        Matcher mat = var.matcher(inf);
+        if (mat.find()){
+            WrongFileFormat.Wrong();
+            return "ERROR";
+        }
         Pattern plus = Pattern.compile("(-?\\d+\\.?\\d*)\\s\\+\\s(-?\\d+\\.?\\d*)");
         Pattern minus = Pattern.compile("(-?\\d+\\.?\\d*)\\s-\\s(-?\\d+\\.?\\d*)");
         Pattern multi = Pattern.compile("(-?\\d+\\.?\\d*)\\s\\*\\s(-?\\d+\\.?\\d*)");

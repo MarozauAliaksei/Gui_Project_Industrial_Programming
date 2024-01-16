@@ -1,0 +1,19 @@
+<tasks>
+    <task task_number="task_number">
+        <equation>put your equation here</equation>
+        <variable_values>
+            <var1>2</var1>
+            <var2>5</var2>
+        </variable_values>
+    </task>
+    <task task_number="2">
+        <equation>3x + 2y</equation>
+        <variable_values>
+            <x>2</x>
+            <y>2</y>
+        </variable_values>
+    </task>
+    <task task_number="other_task_number">
+        ...
+    </task>
+</tasks>

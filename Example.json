@@ -1,0 +1,15 @@
+{
+  "tasks": [
+    {
+      "task_number": number_of_task,
+      "equation": "equation",
+      "variable_values": {
+        "var1": digit,
+        "var2": digit
+      }
+    },
+    {
+      "task_number" other_task_number: ...
+    }
+  ]
+}

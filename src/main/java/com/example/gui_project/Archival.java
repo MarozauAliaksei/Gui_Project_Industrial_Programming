@@ -10,11 +10,11 @@ import java.util.zip.ZipOutputStream;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Archival {
-    Fileworker flw;
+    static Fileworker flw;
     Archival(Fileworker file){
         flw = file;
     }
-    void Archive(String Name, String Format){
+    static void Archive(String Name, String Format){
         flw.FileWrite(Name, Format);
         try(ZipOutputStream out = new ZipOutputStream(new FileOutputStream(Name + ".zip")); FileInputStream fis = new FileInputStream(Name + '.' + Format)){
             ZipEntry enter_one = new ZipEntry(Name + '.' + Format);

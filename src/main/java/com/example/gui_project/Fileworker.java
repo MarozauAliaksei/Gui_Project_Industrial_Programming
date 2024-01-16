@@ -1,11 +1,8 @@
 package com.example.gui_project;
 
 import javafx.scene.control.Alert;
-import netscape.javascript.JSObject;
 
-import java.beans.XMLDecoder;
 import java.io.*;
-import java.util.Objects;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,10 +51,6 @@ class Fileworker {
             }
             inf_.add(a);
         }
-    }
-
-    void Open_zip() {
-
     }
 
 
@@ -120,6 +113,7 @@ class Fileworker {
                 }
                 }
                 else {
+
 
                 }
                 return;

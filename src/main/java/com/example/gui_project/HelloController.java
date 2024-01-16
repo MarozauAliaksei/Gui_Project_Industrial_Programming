@@ -219,6 +219,5 @@ public class HelloController {
                 }
             }
         }
-        playSound("C:\\Users\\user\\Downloads\\Sexy and I Know It.wav", 27805);
     }
 }

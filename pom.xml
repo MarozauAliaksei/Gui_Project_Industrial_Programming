@@ -10,6 +10,8 @@
   <name>Gui_Project</name>
 
   <properties>
+    <project.name>Gui_Project</project.name>
+    <project.version>1.0.0</project.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <junit.version>5.9.2</junit.version>  </properties>
 
@@ -24,7 +26,8 @@
       <artifactId>javafx-fxml</artifactId>
       <version>20.0.1</version>
     </dependency>
-<dependency>
+
+    <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-web</artifactId>
       <version>20.0.1</version>
@@ -74,7 +77,23 @@
           <artifactId>*</artifactId>
         </exclusion>
       </exclusions>
-    </dependency><dependency>
+    </dependency>
+    <dependency>
+      <groupId>eu.hansolo.fx</groupId>
+      <artifactId>heatmap</artifactId>
+      <version>17.0.12</version> <!-- Update to the latest version -->
+    </dependency>
+    <dependency>
+      <groupId>eu.hansolo.fx</groupId>
+      <artifactId>countries</artifactId>
+      <version>17.0.23</version> <!-- Update to the latest version -->
+    </dependency>
+    <dependency>
+      <groupId>eu.hansolo</groupId>
+      <artifactId>tilesfx</artifactId>
+      <version>17.1.17</version> <!-- Replace VERSION_NUMBER with the desired version -->
+    </dependency>
+    <dependency>
       <groupId>com.github.almasb</groupId>
       <artifactId>fxgl</artifactId>
       <version>17.2</version>
@@ -114,6 +133,11 @@
           <source>20</source>
           <target>20</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version> <!-- Use the latest version available -->
       </plugin>
       <plugin>
         <groupId>org.openjfx</groupId>
