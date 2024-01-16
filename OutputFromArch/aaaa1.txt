@@ -1,0 +1,8 @@
+Task 1
+Answer: 34.0
+Task 2
+Answer: 10.0
+Task 3
+Answer: 42.0
+Task 4
+Division by zero

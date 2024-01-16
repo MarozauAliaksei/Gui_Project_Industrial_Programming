@@ -1,0 +1,6 @@
+Task 1
+Answer: 124.0
+Task 2
+Answer: 10.0
+Task 3
+Answer: 42.0

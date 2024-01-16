@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "task_number": 1,
+      "answer": 34.0
+    },
+    {
+      "task_number": 2,
+      "answer": 10.0
+    },
+    {
+      "task_number": 3,
+      "answer": 42.0
+    },
+    {
+      "task_number": 4,
+      "answer": "Division by zero"    }
+  ]
+}
